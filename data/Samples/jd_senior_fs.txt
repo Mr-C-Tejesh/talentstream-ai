@@ -1,0 +1,27 @@
+# Job Description: Senior Full-Stack Engineer (AI focus)
+
+**Location**: Remote
+**Experience**: 5+ Years
+
+## Overview
+We are looking for a Senior Full-Stack Engineer to join our AI Platform team. You will be responsible for building scalable web applications and integrating advanced AI models into our core product.
+
+## Key Responsibilities
+- Design and develop robust, scalable backend services using Python (FastAPI/Django).
+- Build intuitive and responsive user interfaces with React and Tailwind CSS.
+- Integrate LLMs (Large Language Models) like GPT-4, Claude, and Llama 3 into production workflows.
+- Optimize application performance and ensure high availability.
+- Collaborate with cross-functional teams to define and implement new features.
+
+## Requirements
+- 5+ years of experience in full-stack development.
+- Deep proficiency in Python and JavaScript/TypeScript.
+- Experience with modern frontend frameworks (React, Next.js).
+- Strong understanding of RESTful APIs and asynchronous programming.
+- Familiarity with vector databases (Pinecone, Milvus) and RAG (Retrieval-Augmented Generation).
+- Proven track record of delivering high-quality software in a fast-paced environment.
+
+## Preferred Qualifications
+- Contributions to open-source project.
+- Experience with multi-agent systems (CrewAI, LangGraph).
+- Knowledge of DevOps practices and cloud platforms (AWS, GCP).

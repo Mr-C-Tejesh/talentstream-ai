@@ -1,0 +1,33 @@
+# Resume: Jane Doe - Senior Full-Stack Engineer
+
+**Contact**: jane.doe@email.com | +1 555-010-9999 | LinkedIn: /in/janedoe
+
+## Summary
+Senior Software Engineer with 6 years of experience building scalable web applications and AI-powered tools. Proven track record of leading technical projects from inception to deployment. Expert in Python, React, and LLM integrations.
+
+## Experience
+
+### Senior Software Engineer | AI Solutions Inc. | Jan 2021 – Present
+- Led the migration of a legacy monolithic service to a microservices architecture using FastAPI and Docker, reducing infrastructure costs by 30%.
+- Integrated GPT-4 into a customer support platform, resulting in a 40% reduction in response times and a 15% increase in CSAT scores.
+- Developed a RAG-based search engine using Pinecone and LangChain to improve internal knowledge retrieval efficiency by 50%.
+- Mentored junior engineers and implemented CI/CD pipelines to ensure high code quality and fast delivery.
+
+### Full-Stack Developer | Tech Nova | June 2018 – Dec 2020
+- Built and maintained several web applications using React and Node.js.
+- Developed a real-time analytics dashboard with WebSockets and D3.js.
+- Optimized frontend performance, achieving a 20% improvement in Lighthouse scores.
+- Collaborated with product owners to define user stories and acceptance criteria.
+
+## Education
+**Bachelor of Science in Computer Science** | University of Technology | 2018
+
+## Skills
+- **Languages**: Python, JavaScript, TypeScript, SQL, HTML, CSS.
+- **Frameworks**: FastAPI, Django, React, Next.js, Node.js, Express.
+- **AI/ML**: OpenAI API, LangChain, CrewAI, Pinecone, Vector Databases.
+- **DevOps/Tools**: Docker, Kubernetes, AWS (S3, EC2), Git, CI/CD.
+
+## Projects
+- **Agentic Workflow Builder**: A tool for creating multi-agent systems with simplified UI.
+- **Eco-Track**: A personal sustainability tracker built with React Native.

@@ -1,0 +1,11 @@
+{
+  "venvPath": "/Users/tejesh/Coding/Agentic AI/Intership Project/talentstream-ai",
+  "venv": "venv",
+  "pythonPlatform": "Darwin",
+  "executionEnvironments": [
+    {
+      "root": "/Users/tejesh/Coding/Agentic AI/Intership Project/talentstream-ai",
+      "pythonPath": "/Users/tejesh/Coding/Agentic AI/Intership Project/talentstream-ai/venv/bin/python"
+    }
+  ]
+}

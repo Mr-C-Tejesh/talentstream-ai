@@ -1,0 +1,8 @@
+crewai
+langchain
+pypdf
+fastapi
+uvicorn
+python-dotenv
+pyyaml
+pydantic
