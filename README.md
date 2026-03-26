@@ -2,13 +2,16 @@
 
 **Autonomous Multi-Agent Hiring & Interviewing System**
 
-TalentStream AI is an autonomous recruitment ecosystem powered by a **"Digital Hiring Committee."** Unlike basic keyword matchers, it employs a multi-agent architecture where specialized AI agents (Tech Lead, HR, and Manager) collaborate to simulate a full hiring pipeline from application to final decision.
+---
+
+## 🔥 The Unique Idea
+**TalentStream AI** isn't just another resume parser. It is an autonomous recruitment ecosystem that simulates a **real-world hiring pipeline.** Instead of relying on a single model's output, it employs a **"Digital Hiring Committee"** of specialized AI agents that collaborate, debate, and reason together to move a candidate from application to a final data-driven hiring decision.
 
 ---
 
 ## 🧠 System Architecture
 
-The system operates on an **Orchestrated Agentic Workflow** using LangGraph/CrewAI:
+The system operates on an **Orchestrated Agentic Workflow** using LangGraph/CrewAI. For a deep dive into the multi-agent reasoning logic, see our [Full Architecture Documentation](docs/architecture.md).
 
 ```mermaid
 graph TD
