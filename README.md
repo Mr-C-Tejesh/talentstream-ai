@@ -7,6 +7,39 @@
 ## 🔥 The Unique Idea
 **TalentStream AI** isn't just another resume parser. It is an autonomous recruitment ecosystem that simulates a **real-world hiring pipeline.** Instead of relying on a single model's output, it employs a **"Digital Hiring Committee"** of specialized AI agents that collaborate, debate, and reason together to move a candidate from application to a final data-driven hiring decision.
 
+> **Note:** This screener agent serves as the foundation for the upcoming multi-agent hiring pipeline, providing the structured intelligence required for adaptive interviewing and committee debate.
+
+---
+
+## 🧪 Week 1 Screener: Sample Output
+
+The **Screener Agent** transforms raw PDFs into structured intelligence for the Hiring Committee:
+
+```json
+{
+  "match_score": 78,
+  "summary": "Strong backend focus with significant FastAPI experience, but lacks demonstrated cloud-native deployment history.",
+  "strengths": [
+    "Expertise in Asynchronous Python and FastAPI",
+    "Solid understanding of SQL/NoSQL database design",
+    "Experience with CI/CD automation"
+  ],
+  "weaknesses": [
+    "No explicit experience with Docker or Containerization",
+    "Missing hands-on Kubernetes orchestration"
+  ],
+  "areas_to_probe": [
+    "Containerization knowledge and willingness to learn DevOps tools",
+    "Experience scaling APIs under high-concurrency loads"
+  ],
+  "interview_questions": [
+    "Explain your approach to REST API design for high-traffic systems.",
+    "How would you optimize a FastAPI application that is experiencing database bottlenecks?",
+    "Since the role requires Docker, can you explain the conceptual benefits of containerization for deployment?"
+  ]
+}
+```
+
 ---
 
 ## 🧠 System Architecture
