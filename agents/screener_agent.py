@@ -28,8 +28,12 @@ class ScreenerAgent:
         )
 
     def create_task(self, jd_text: str, resume_text: str):
+        from datetime import date
+        current_date = date.today().strftime("%Y-%m-%d")
+        
         return Task(
             description=(
+                f"Important Context: The current date is {current_date}. Use this date to accurately calculate the total years of work experience when a candidate lists 'Present'.\n\n"
                 f"Analyze the following Resume against the provided Job Description (JD).\n\n"
                 f"**Job Description:**\n{jd_text}\n\n"
                 f"**Resume:**\n{resume_text}\n\n"

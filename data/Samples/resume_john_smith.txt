@@ -1,0 +1,32 @@
+# Resume: John Smith - Backend Developer
+
+**Contact**: john.smith@email.com | +1 555-020-8888 | LinkedIn: /in/johnsmithdev
+
+## Summary
+Backend Engineer with 3 years of experience designing and building RESTful APIs using Python and Django. Passionate about database optimization and writing clean, testable code. Looking to expand my skills in modern frontend frameworks and Artificial Intelligence.
+
+## Experience
+
+### Backend Developer | CloudData Solutions | March 2023 – Present
+- Designed and maintained scalable backend services using Python and Django REST Framework.
+- Optimized PostgreSQL database queries, reducing data retrieval times by 25%.
+- Implemented asynchronous background tasks using Celery and Redis.
+- Built automated internal deployment pipelines (CI/CD) using GitHub Actions.
+
+### Junior Python Developer | Tech Start | Jan 2021 – Feb 2023
+- Handled bug fixes and maintained legacy Python codebases.
+- Wrote unit tests to increase backend code coverage from 40% to 75%.
+- Assisted in deploying applications to AWS EC2 instances.
+
+## Education
+**Bachelor of Science in Computer Science** | City College of Technology | 2020
+
+## Skills
+- **Languages**: Python, SQL, Bash.
+- **Frameworks/Libraries**: Django, Flask, Pytest, Celery.
+- **Databases**: PostgreSQL, Redis, MySQL.
+- **DevOps/Tools**: Git, Docker (Basic), AWS EC2.
+
+## Projects
+- **Task Management API**: Built a full CRUD API using Django with token-based authentication.
+- **Data Scraper**: Created a beautifully formatted python web scraper using Beautiful Soup that parses local news websites.

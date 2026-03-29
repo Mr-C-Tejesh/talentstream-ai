@@ -1,5 +1,6 @@
 # TalentStream AI 🚀
 import os
+os.environ["CREWAI_TELEMETRY_OPT_OUT"] = "true"
 import json
 from dotenv import load_dotenv
 from agents.screener_agent import run_screening_pipeline, ScreeningResult
@@ -54,7 +55,7 @@ def main():
 
     # User Inputs (for Demo)
     jd_path = "data/Samples/jd_senior_fs.txt"
-    resume_path = "data/Samples/resume_jane_doe.txt"
+    resume_path = "data/Samples/resume_john_smith.txt"
     
     print(f"📄 {BOLD}Reading Job Description:{RESET} {jd_path}")
     jd_text = read_text_file(jd_path)
