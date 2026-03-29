@@ -1,6 +1,7 @@
 from crewai import Agent, Task, Crew, Process
 from pydantic import BaseModel, Field
 from typing import List, Optional
+from .jd_analyzer_agent import JobRequirements
 import os
 
 class ScreeningResult(BaseModel):
@@ -14,7 +15,7 @@ class ScreenerAgent:
     def __init__(self, model="groq/llama-3.3-70b-versatile"):
         self.agent = Agent(
             role="Expert Technical Recruiter & Resume Analyst",
-            goal="Perform a deep match between a candidate's resume and a Job Description (JD).",
+            goal="Perform a deep match between a candidate's resume and structured job requirements.",
             backstory=(
                 "You are a seasoned technical recruiter with 15+ years of experience in FAANG-level hiring. "
                 "You have a keen eye for detail and can spot technical depth, architectural understanding, "
@@ -27,30 +28,35 @@ class ScreenerAgent:
             llm=model
         )
 
-    def create_task(self, jd_text: str, resume_text: str):
+    def create_task(self, jd_requirements: JobRequirements, resume_text: str):
         from datetime import date
         current_date = date.today().strftime("%Y-%m-%d")
+        
+        # Format requirements for the prompt
+        must_haves_str = "\n".join([f"- {m}" for m in jd_requirements.must_haves])
+        tech_stack_str = ", ".join(jd_requirements.required_tech_stack)
         
         return Task(
             description=(
                 f"Important Context: The current date is {current_date}. Use this date to accurately calculate the total years of work experience when a candidate lists 'Present'.\n\n"
-                f"Analyze the following Resume against the provided Job Description (JD).\n\n"
-                f"**Job Description:**\n{jd_text}\n\n"
-                f"**Resume:**\n{resume_text}\n\n"
+                f"Analyze the following Resume against the structured Job Requirements for the role: **{jd_requirements.role_title}**.\n\n"
+                f"**Critical Must-Haves:**\n{must_haves_str}\n\n"
+                f"**Required Tech Stack:**\n{tech_stack_str}\n\n"
+                f"**Resume Content:**\n{resume_text}\n\n"
                 "Extract the match percentage, key strengths, areas to probe, a brief candidate summary, "
-                "and any missing critical skills."
+                "and any missing critical skills based on the Must-Haves and Tech Stack provided."
             ),
             expected_output="A structured JSON response with match_percentage, key_strengths, areas_to_probe, candidate_summary, and missing_skills.",
             agent=self.agent,
             output_json=ScreeningResult
         )
 
-def run_screening_pipeline(jd_text: str, resume_text: str, model="groq/llama-3.3-70b-versatile"):
+def run_screening_pipeline(jd_requirements: JobRequirements, resume_text: str, model="groq/llama-3.3-70b-versatile"):
     # Initialize the agent
     screener = ScreenerAgent(model=model)
     
     # Create the task
-    task = screener.create_task(jd_text, resume_text)
+    task = screener.create_task(jd_requirements, resume_text)
     
     # Assemble the crew
     crew = Crew(

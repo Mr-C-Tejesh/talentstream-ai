@@ -1,5 +1,6 @@
 crewai
 langchain
+langchain-community
 pypdf
 fastapi
 uvicorn
@@ -7,3 +8,5 @@ python-dotenv
 pyyaml
 pydantic
 litellm
+psycopg2-binary
+pgvector

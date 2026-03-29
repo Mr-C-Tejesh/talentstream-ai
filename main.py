@@ -3,7 +3,7 @@ import os
 os.environ["CREWAI_TELEMETRY_OPT_OUT"] = "true"
 import json
 from dotenv import load_dotenv
-from agents.screener_agent import run_screening_pipeline, ScreeningResult
+from agents import run_screening_pipeline, run_jd_analysis, ScreeningResult, JobRequirements
 from agents.utils import parse_pdf, read_text_file
 
 # ANSI Color Codes
@@ -17,22 +17,17 @@ RESET = "\033[0m"
 # Load environment variables
 load_dotenv()
 
-def parse_result(result):
-    """Parse CrewAI result into ScreeningResult, handling multiple output formats."""
-    # Try pydantic first (works with OpenAI native)
+def parse_pydantic(result, model_class):
+    """Parse CrewAI result into a specific Pydantic model."""
     if hasattr(result, 'pydantic') and result.pydantic:
         return result.pydantic
     
-    # Try json_dict (works with some providers)
     if hasattr(result, 'json_dict') and result.json_dict:
-        return ScreeningResult(**result.json_dict)
+        return model_class(**result.json_dict)
     
-    # Fallback: parse the raw string output as JSON
     raw = str(result.raw) if hasattr(result, 'raw') else str(result)
-    # Find JSON in the output (might be wrapped in markdown code blocks)
     raw = raw.strip()
     if raw.startswith("```"):
-        # Remove markdown wrapper
         lines = raw.split("\n")
         if lines[0].startswith("```"):
             lines = lines[1:]
@@ -40,43 +35,43 @@ def parse_result(result):
             lines = lines[:-1]
         raw = "\n".join(lines).strip()
     
-    return ScreeningResult(**json.loads(raw))
+    return model_class(**json.loads(raw))
 
 def main():
     print(f"\n{BOLD}{CYAN}TalentStream AI{RESET} - {BOLD}Autonomous Multi-Agent Hiring System{RESET}")
-    print(f"{CYAN}Week 1: Digital Screener Demo{RESET}\n")
+    print(f"{CYAN}Week 1: Multi-Agent Digital Screener{RESET}\n")
     
-    # Check for API Key
     if not os.getenv("GROQ_API_KEY"):
-        print(f"{RED}❌ Error: GROQ_API_KEY not found in environment variables.{RESET}")
-        print("Please create a .env file with your Groq API key.")
-        print("Get a free key at: https://console.groq.com/keys")
+        print(f"{RED}❌ Error: GROQ_API_KEY not found.{RESET}")
         return
 
-    # User Inputs (for Demo)
+    # User Inputs
     jd_path = "data/Samples/jd_senior_fs.txt"
     resume_path = "data/Samples/resume_john_smith.txt"
     
-    print(f"📄 {BOLD}Reading Job Description:{RESET} {jd_path}")
+    print(f"📄 {BOLD}Reading Files...{RESET}")
     jd_text = read_text_file(jd_path)
-    
-    print(f"📄 {BOLD}Reading Resume:{RESET} {resume_path}")
-    # Handle both .txt and .pdf for the demo
-    if resume_path.endswith(".pdf"):
-        resume_text = parse_pdf(resume_path)
-    else:
-        resume_text = read_text_file(resume_path)
+    resume_text = parse_pdf(resume_path) if resume_path.endswith(".pdf") else read_text_file(resume_path)
     
     if not jd_text or not resume_text:
-        print(f"{RED}❌ Error: Could not read Job Description or Resume.{RESET}")
+        print(f"{RED}❌ Error: Files not found.{RESET}")
         return
 
-    print(f"\n{YELLOW}🔍 Orchestrating Agents... (This may take a moment){RESET}")
     try:
-        result = run_screening_pipeline(jd_text, resume_text)
-        data = parse_result(result)
+        # STEP 1: JD Analysis
+        print(f"\n{YELLOW}🧠 Step 1: Analyzing Job Description...{RESET}")
+        jd_result = run_jd_analysis(jd_text)
+        jd_requirements = parse_pydantic(jd_result, JobRequirements)
         
-        # Determine Color for Match Percentage
+        print(f"{GREEN}✅ JD Analyzed: {BOLD}{jd_requirements.role_title}{RESET}")
+        print(f"   Required Tech: {', '.join(jd_requirements.required_tech_stack[:5])}...")
+
+        # STEP 2: Candidate Screening
+        print(f"\n{YELLOW}🔍 Step 2: Orchestrating Screener Agent...{RESET}")
+        screen_result = run_screening_pipeline(jd_requirements, resume_text)
+        data = parse_pydantic(screen_result, ScreeningResult)
+        
+        # UI Report
         match_val = data.match_percentage
         color = GREEN if match_val >= 80 else YELLOW if match_val >= 60 else RED
         
@@ -84,6 +79,7 @@ def main():
         print(f"{BOLD}{CYAN}           TALENT INTELLIGENCE REPORT - SCREENER{RESET}")
         print("━"*60)
         
+        print(f"{BOLD}ROLE:{RESET} {jd_requirements.role_title}")
         print(f"{BOLD}MATCH PROBABILITY:{RESET} {color}{match_val}%{RESET}")
         print(f"\n{BOLD}CANDIDATE SUMMARY:{RESET}\n{data.candidate_summary}")
         
