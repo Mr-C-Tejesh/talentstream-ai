@@ -106,4 +106,4 @@ python main.py
 ```bash
 uvicorn api.main:app --reload
 ```
-Once running, visit **`http://localhost:8000/docs`** to explore the interactive API documentation and test the endpoints.
+Once the server is running, you can access the **Interactive API Documentation (Swagger UI)** by navigating to the `/docs` endpoint on your local host to explore and test the REST endpoints.
