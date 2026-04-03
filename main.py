@@ -4,7 +4,7 @@ os.environ["CREWAI_TELEMETRY_OPT_OUT"] = "true"
 import json
 from dotenv import load_dotenv
 from agents import run_screening_pipeline, run_jd_analysis, ScreeningResult, JobRequirements
-from agents.utils import parse_pdf, read_text_file
+from agents.utils import parse_pdf, read_text_file, parse_agent_output
 
 # ANSI Color Codes
 GREEN = "\033[92m"
@@ -17,29 +17,9 @@ RESET = "\033[0m"
 # Load environment variables
 load_dotenv()
 
-def parse_pydantic(result, model_class):
-    """Parse CrewAI result into a specific Pydantic model."""
-    if hasattr(result, 'pydantic') and result.pydantic:
-        return result.pydantic
-    
-    if hasattr(result, 'json_dict') and result.json_dict:
-        return model_class(**result.json_dict)
-    
-    raw = str(result.raw) if hasattr(result, 'raw') else str(result)
-    raw = raw.strip()
-    if raw.startswith("```"):
-        lines = raw.split("\n")
-        if lines[0].startswith("```"):
-            lines = lines[1:]
-        if lines[-1].strip() == "```":
-            lines = lines[:-1]
-        raw = "\n".join(lines).strip()
-    
-    return model_class(**json.loads(raw))
-
 def main():
     print(f"\n{BOLD}{CYAN}TalentStream AI{RESET} - {BOLD}Autonomous Multi-Agent Hiring System{RESET}")
-    print(f"{CYAN}Week 1: Multi-Agent Digital Screener{RESET}\n")
+    print(f"{CYAN}Week 2: Multi-Agent Digital Screener & API{RESET}\n")
     
     if not os.getenv("GROQ_API_KEY"):
         print(f"{RED}❌ Error: GROQ_API_KEY not found.{RESET}")
@@ -47,7 +27,7 @@ def main():
 
     # User Inputs
     jd_path = "data/Samples/jd_senior_fs.txt"
-    resume_path = "data/Samples/resume_john_smith.txt"
+    resume_path = "data/Samples/resume_jane_doe.txt"
     
     print(f"📄 {BOLD}Reading Files...{RESET}")
     jd_text = read_text_file(jd_path)
@@ -61,7 +41,7 @@ def main():
         # STEP 1: JD Analysis
         print(f"\n{YELLOW}🧠 Step 1: Analyzing Job Description...{RESET}")
         jd_result = run_jd_analysis(jd_text)
-        jd_requirements = parse_pydantic(jd_result, JobRequirements)
+        jd_requirements = parse_agent_output(jd_result, JobRequirements)
         
         print(f"{GREEN}✅ JD Analyzed: {BOLD}{jd_requirements.role_title}{RESET}")
         print(f"   Required Tech: {', '.join(jd_requirements.required_tech_stack[:5])}...")
@@ -69,7 +49,7 @@ def main():
         # STEP 2: Candidate Screening
         print(f"\n{YELLOW}🔍 Step 2: Orchestrating Screener Agent...{RESET}")
         screen_result = run_screening_pipeline(jd_requirements, resume_text)
-        data = parse_pydantic(screen_result, ScreeningResult)
+        data = parse_agent_output(screen_result, ScreeningResult)
         
         # UI Report
         match_val = data.match_percentage
