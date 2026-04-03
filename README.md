@@ -7,16 +7,14 @@
 ## 🔥 The Unique Positioning (Top 1% Strategy)
 **TalentStream AI** isn't just another resume parser. It is an autonomous recruitment ecosystem that simulates a **real-world hiring pipeline.** Instead of relying on a single model's output, it employs a **"Digital Hiring Committee"** of specialized AI agents that collaborate, debate, and reason together to move a candidate from application to a final data-driven hiring decision.
 
-### Week 1 Progress: The Digital Screener Pipeline
-For the Week 1 milestone, we have implemented a **Multi-Agent Screening Pipeline**. Unlike basic keyword matchers, our system uses two specialized agents:
-1.  **Technical Hiring Strategist (JD Analyzer):** Breaks down complex JDs into structured "Must-Haves," Tech Stacks, and Soft Skills.
-2.  **Expert Technical Recruiter (Screener Agent):** Performs a "Deep Match" between the candidate and the *structured requirements* extracted by the first agent.
+### Week 2 Milestone: API-Powered Multi-Agent Pipeline
+For the Week 2 milestone, we have transitioned from a local CLI script to a professional **FastAPI-powered Backend**. The system now exposes its agentic intelligence via RESTful endpoints, allowing for seamless integration with modern recruiter dashboards.
 
 ---
 
-## 🧪 Week 1 Milestone: Multi-Agent Screening Demo
+## 🧪 Week 2 Milestone: Multi-Agent Screening Demo
 
-The system now generates a professional **Talent Intelligence Report** by orchestrating multiple agents:
+The system now generates a professional **Talent Intelligence Report** via both CLI and API:
 
 ```text
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -55,7 +53,7 @@ The system operates on an **Orchestrated Agentic Workflow** using CrewAI and Lan
 
 ```mermaid
 graph TD
-    A[Job Description] --> B[JD Analyzer Agent]
+    A[Recruiter API / Dashboard] --> B[JD Analyzer Agent]
     B -->|Structured Requirements| C[Screener Agent]
     D[Resume PDF/Text] --> C
     C -->|Match Score & Strengths| E[Interviewer Agent]
@@ -70,16 +68,18 @@ graph TD
 ```
 
 ### The Pipeline:
-1. **JD Analyzer Agent**: Extracts structured "Must-Haves" from raw job descriptions.
-2. **Screening Agent**: Performs a "Deep Match" between requirements and experience, identifying "weak spots" for the next phase.
-3. **The Interviewer (Interactive Agent)**: A dynamic chat interface that probes specific claims rather than following a fixed script.
-4. **The Committee (Debate Layer)**: The interview transcript is analyzed from three distinct perspectives (Technical depth, Culture fit, and ROI).
-5. **Consensus Engine**: Agents resolve conflicts and output a data-driven, synthesized "Talent Report."
+1.  **FastAPI Ingestion**: Professional REST endpoints for JD analysis and candidate screening.
+2.  **JD Analyzer Agent**: Extracts structured "Must-Haves" from raw job descriptions.
+3.  **Screening Agent**: Performs a "Deep Match" between requirements and experience, identifying "weak spots" for the next phase.
+4.  **The Interviewer (Interactive Agent)**: A dynamic chat interface that probes specific claims rather than following a fixed script.
+5.  **The Committee (Debate Layer)**: The interview transcript is analyzed from three distinct perspectives (Technical depth, Culture fit, and ROI).
+6.  **Consensus Engine**: Agents resolve conflicts and output a data-driven, synthesized "Talent Report."
 
 ---
 
 ## 🧩 Project Structure
 - `agents/`: Core logic for specialized AI agents (`jd_analyzer_agent.py`, `screener_agent.py`).
+- `api/`: FastAPI backend implementation and REST endpoints.
 - `data/Samples/`: Sample JDs and Resumes for testing.
 - `docs/`: Personas, technical diagrams, and project documentation.
 - `main.py`: CLI entry point for the Multi-Agent Screener Demo.
@@ -90,12 +90,20 @@ graph TD
 - **Backend**: FastAPI (Python)
 - **Database**: PostgreSQL + pgvector (Industrial Standard)
 
-## 🚀 Getting Started (Week 1 Milestone)
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Run the Multi-Agent Screener Demo:
-   ```bash
-   python main.py
-   ```
+## 🚀 Getting Started (Week 2 Milestone)
+
+### 1. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Run the CLI Demo
+```bash
+python main.py
+```
+
+### 3. Run the FastAPI Server
+```bash
+uvicorn api.main:app --reload
+```
+Once running, visit **`http://localhost:8000/docs`** to explore the interactive API documentation and test the endpoints.
