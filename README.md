@@ -7,32 +7,39 @@
 ## 🔥 The Unique Positioning (Top 1% Strategy)
 **TalentStream AI** is an autonomous recruitment ecosystem that simulates a **real-world hiring pipeline.** Instead of relying on a single model's output, it employs a **"Digital Hiring Committee"** of specialized AI agents that collaborate, debate, and reason together to move a candidate from application to a final data-driven hiring decision.
 
-### Week 3 Milestone: Semantic Sourcing & Vector DB
-For the Week 3 milestone, we have moved from static file screening to a **stateful, searchable talent database.** The system now features:
-1.  **Vector Search (pgvector):** High-performance semantic search powered by Supabase and local embeddings (HuggingFace).
-2.  **Sourcing Agent (The Headhunter):** A dedicated agent that translates JDs into search strategies to find the top matching candidates in the database.
-3.  **RAG Pipeline:** Automated ingestion and embedding of resumes into a persistent "Long-term Memory."
+### Week 4 Milestone: The Linear MVP Checkpoint
+For the mid-term milestone (Week 4), we have achieved a fully functional **Linear Talent Pipeline**. The system can now autonomously transition a requirement from a raw JD to a candidate-specific interview plan.
 
 ---
 
-## 🧪 Week 3 Milestone: Sourcing Agent Demo
+## 🧪 Week 4 Milestone: End-to-End Evaluation Demo
 
-The system can now source candidates semantically from thousands of records:
+The system generates a comprehensive **Talent Intelligence Report** via a single pipeline:
 
 ```text
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           TALENT INTELLIGENCE REPORT - SOURCING
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-TARGET ROLE: Senior Full-Stack Engineer (AI focus)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           TALENT INTELLIGENCE REPORT - FINAL MVP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CANDIDATE: Jane Doe
+MATCH PROBABILITY: 90%
 
-1. Jane Doe
-   Similarity Score: 0.89
-   Headhunter Reasoning: Jane is an elite match with 8+ years of experience and specific expertise in LLM production workflows and RAG systems, perfectly aligning with the AI focus of this role.
+💪 KEY STRENGTHS:
+  ● Deep proficiency in Python (FastAPI) and React
+  ● Proven track record in building production-ready RAG systems
+  ● Strong understanding of architectural scalability
 
-2. John Smith
-   Similarity Score: 0.72
-   Headhunter Reasoning: Strong backend fundamentals in Python/Django, though lacks the direct AI integration experience required for the primary focus of this position.
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 STRATEGIC INTERVIEW QUESTIONS:
+  1. Describe a recent project where you had to optimize the performance of a React application. What specific optimizations did you implement?
+  2. How do you handle errors and exceptions when integrating with Large Language Models (LLMs)?
+  3. Design a high-level architecture for a scalable web application that utilizes LLMs.
+  4. Can you explain the differences between FastAPI and Django for high-concurrency tasks?
+  5. Walk me through your process for debugging issues with LLM-based RAG pipelines.
+
+💡 INTERVIEWER GUIDANCE:
+  Pay close attention to her ability to provide first-principles architectural reasoning. Watch for signs of keyword stuffing and press for specific implementation details.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FINAL RECOMMENDATION: HIRE / PROCEED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ---
@@ -48,28 +55,23 @@ graph TD
     C -->|Semantic Search| D[(Supabase Vector DB)]
     D -->|Top Matches| C
     C -->|Ranked Candidates| E[Screener Agent]
-    E -->|Match Score & Strengths| F[Interviewer Agent]
-    subgraph "The Digital Hiring Committee"
-        G[Tech Lead Agent]
-        H[HR Manager Agent]
-        I[Dept Manager Agent]
-    end
+    E -->|Deep Match| F[Interviewer Agent]
+    F -->|Tailored Questions| G[Final MVP Report]
 ```
 
 ### The Pipeline:
 1.  **JD Analyzer Agent**: Extracts structured requirements from raw job descriptions.
 2.  **Sourcing Agent**: Performs semantic search across the **Vector DB** to find best-fit talent.
-3.  **Screening Agent**: Performs a "Deep Match" between requirements and specific candidate experience.
-4.  **Consensus Engine**: Agents resolve conflicts and output a synthesized "Talent Report."
+3.  **Screening Agent**: Performs a "Deep Match" between requirements and candidate experience.
+4.  **Interviewer Agent**: Generates 5 strategic, non-googlable questions tailored to the candidate's gaps.
 
 ---
 
 ## 🧩 Project Structure
-- `agents/`: Core logic for specialized AI agents (`jd_analyzer_agent.py`, `screener_agent.py`, `sourcing_agent.py`).
+- `agents/`: Core logic for specialized AI agents (`jd_analyzer_agent.py`, `screener_agent.py`, `sourcing_agent.py`, `interviewer_agent.py`).
 - `api/`: FastAPI backend implementation and REST endpoints.
 - `ingest_resumes.py`: Utility to parse and index resumes into the Vector DB.
-- `data/Samples/`: Sample JDs and Resumes for testing.
-- `docs/`: Personas, technical diagrams, and project documentation.
+- `main.py`: CLI entry point for the Full End-to-End MVP Demo.
 
 ## 🛠️ Tech Stack
 - **Orchestration**: CrewAI / LangGraph
@@ -77,20 +79,15 @@ graph TD
 - **Embeddings**: HuggingFace Local (Free & Private)
 - **Database**: PostgreSQL + pgvector (Supabase)
 
-## 🚀 Getting Started (Week 3 Milestone)
+## 🚀 Getting Started (Week 4 Milestone)
 
-### 1. Ingest Resumes into Vector DB
+### 1. Run the Full MVP Demo (CLI)
 ```bash
-python ingest_resumes.py
+python main.py
 ```
 
-### 2. Run the Sourcing Test
-```bash
-python test_sourcing.py
-```
-
-### 3. Run the FastAPI Server
+### 2. Run the Evaluation API
 ```bash
 uvicorn api.main:app --reload
 ```
-Once the server is running, you can access the **Interactive API Documentation (Swagger UI)** by navigating to the `/docs` endpoint on your local host to explore and test the REST endpoints, including the new `POST /source-candidates`.
+Test the new `POST /evaluate-candidate` endpoint in the Swagger UI to see the full end-to-end reasoning in action.
