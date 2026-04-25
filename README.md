@@ -7,38 +7,36 @@
 ## 🔥 The Unique Positioning (Top 1% Strategy)
 **TalentStream AI** is an autonomous recruitment ecosystem that simulates a **real-world hiring pipeline.** Instead of relying on a single model's output, it employs a **"Digital Hiring Committee"** of specialized AI agents that collaborate, debate, and reason together to move a candidate from application to a final data-driven hiring decision.
 
-### Week 4 Milestone: The Linear MVP Checkpoint
-For the mid-term milestone (Week 4), we have achieved a fully functional **Linear Talent Pipeline**. The system can now autonomously transition a requirement from a raw JD to a candidate-specific interview plan.
+### Week 5 Milestone: The Agentic Shift (LangGraph Implementation)
+For the Week 5 milestone, we have transitioned from a linear pipeline to a **Multi-Agent Decision Loop** using **LangGraph**. The system now implements the "Digital Hiring Committee" where specialized agents (e.g., Tech, HR, Manager) collaborate, debate candidate fit based on gaps and strengths, and use stateful orchestration to arrive at a consensus-driven final decision.
 
 ---
 
-## 🧪 Week 4 Milestone: End-to-End Evaluation Demo
+## 🧪 Week 5 Milestone: End-to-End Consensus Demo
 
-The system generates a comprehensive **Talent Intelligence Report** via a single pipeline:
+The system generates a comprehensive **Talent Intelligence Report** after a multi-agent debate:
 
 ```text
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           TALENT INTELLIGENCE REPORT - FINAL MVP
+           TALENT INTELLIGENCE REPORT - HIRING COMMITTEE
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CANDIDATE: Jane Doe
-MATCH PROBABILITY: 90%
+CONSENSUS SCORE: 92%
 
-💪 KEY STRENGTHS:
-  ● Deep proficiency in Python (FastAPI) and React
-  ● Proven track record in building production-ready RAG systems
-  ● Strong understanding of architectural scalability
+🤝 COMMITTEE DEBATE SUMMARY:
+  ● Tech Lead Agent: "Strong technical foundations in FastAPI and React. Can handle scaling our RAG systems."
+  ● HR Manager Agent: "Great cultural fit and communication skills, though we need to assess her handling of ambiguous LLM errors."
+  ● Decision: Unanimous agreement to proceed.
 
 🎯 STRATEGIC INTERVIEW QUESTIONS:
   1. Describe a recent project where you had to optimize the performance of a React application. What specific optimizations did you implement?
   2. How do you handle errors and exceptions when integrating with Large Language Models (LLMs)?
   3. Design a high-level architecture for a scalable web application that utilizes LLMs.
-  4. Can you explain the differences between FastAPI and Django for high-concurrency tasks?
-  5. Walk me through your process for debugging issues with LLM-based RAG pipelines.
 
 💡 INTERVIEWER GUIDANCE:
-  Pay close attention to her ability to provide first-principles architectural reasoning. Watch for signs of keyword stuffing and press for specific implementation details.
+  Validate technical depth during system design questions to confirm her level 3 competency in LangGraph.
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-FINAL RECOMMENDATION: HIRE / PROCEED
+FINAL RECOMMENDATION: HIRE / PROCEED (CONSENSUS REACHED)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
@@ -46,7 +44,7 @@ FINAL RECOMMENDATION: HIRE / PROCEED
 
 ## 🧠 System Architecture
 
-The system operates on an **Orchestrated Agentic Workflow** using CrewAI and LangGraph.
+The system fundamentally shifted to a **Stateful Orchestrated Agentic Workflow** utilizing LangGraph.
 
 ```mermaid
 graph TD
@@ -54,34 +52,37 @@ graph TD
     B -->|Structured Requirements| C[Sourcing Agent]
     C -->|Semantic Search| D[(Supabase Vector DB)]
     D -->|Top Matches| C
-    C -->|Ranked Candidates| E[Screener Agent]
-    E -->|Deep Match| F[Interviewer Agent]
-    F -->|Tailored Questions| G[Final MVP Report]
+    C -->|Ranked Candidates| E[Hiring Committee LangGraph]
+    E --> F[Tech Lead Agent]
+    E --> G[HR Agent]
+    F --> H{Consensus & Debate Loop}
+    G --> H
+    H -->|Final Decision| I[Final Intelligence Report]
 ```
 
 ### The Pipeline:
 1.  **JD Analyzer Agent**: Extracts structured requirements from raw job descriptions.
 2.  **Sourcing Agent**: Performs semantic search across the **Vector DB** to find best-fit talent.
-3.  **Screening Agent**: Performs a "Deep Match" between requirements and candidate experience.
-4.  **Interviewer Agent**: Generates 5 strategic, non-googlable questions tailored to the candidate's gaps.
+3.  **Hiring Committee (LangGraph)**: Replaces the linear screener. Tech and HR agents review the candidate in parallel, debate discrepancies, and reach a consensus score.
+4.  **Interviewer Agent**: Generates strategic, non-googlable questions based on the committee's findings.
 
 ---
 
 ## 🧩 Project Structure
-- `agents/`: Core logic for specialized AI agents (`jd_analyzer_agent.py`, `screener_agent.py`, `sourcing_agent.py`, `interviewer_agent.py`).
+- `agents/`: Core logic for specialized AI agents (including the new LangGraph committee nodes).
 - `api/`: FastAPI backend implementation and REST endpoints.
 - `ingest_resumes.py`: Utility to parse and index resumes into the Vector DB.
-- `main.py`: CLI entry point for the Full End-to-End MVP Demo.
+- `main.py`: CLI entry point for the Multi-Agent Debate Demo.
 
 ## 🛠️ Tech Stack
-- **Orchestration**: CrewAI / LangGraph
+- **Orchestration**: LangGraph (Week 5 Upgrade) & CrewAI
 - **LLMs**: Gemini 1.5 Pro & Groq (Llama 3)
 - **Embeddings**: HuggingFace Local (Free & Private)
 - **Database**: PostgreSQL + pgvector (Supabase)
 
-## 🚀 Getting Started (Week 4 Milestone)
+## 🚀 Getting Started (Week 5 Milestone)
 
-### 1. Run the Full MVP Demo (CLI)
+### 1. Run the Hiring Committee Demo (CLI)
 ```bash
 python main.py
 ```
@@ -90,4 +91,4 @@ python main.py
 ```bash
 uvicorn api.main:app --reload
 ```
-Test the new `POST /evaluate-candidate` endpoint in the Swagger UI to see the full end-to-end reasoning in action.
+Test the multi-agent consensus logic via the backend endpoints.
