@@ -3,6 +3,7 @@ os.environ["CREWAI_TELEMETRY_OPT_OUT"] = "true"
 import json
 from dotenv import load_dotenv
 from agents import run_screening_pipeline, run_jd_analysis, run_interview_planning_pipeline, ScreeningResult, JobRequirements, InterviewPlan
+from agents.hiring_committee import run_hiring_committee
 from agents.utils import parse_pdf, read_text_file, parse_agent_output
 
 # ANSI Color Codes
@@ -19,7 +20,7 @@ load_dotenv()
 
 def main():
     print(f"\n{BOLD}{CYAN}TalentStream AI{RESET} - {BOLD}Autonomous Multi-Agent Hiring System{RESET}")
-    print(f"{CYAN}Week 4: Linear MVP Checkpoint{RESET}\n")
+    print(f"{CYAN}Week 5: Agentic Shift (LangGraph Committee Debate){RESET}\n")
     
     if not os.getenv("GROQ_API_KEY"):
         print(f"{RED}❌ Error: GROQ_API_KEY not found.{RESET}")
@@ -55,11 +56,22 @@ def main():
         print(f"\n{YELLOW}📋 Step 3: Generating Strategic Interview Plan...{RESET}")
         interview_result = run_interview_planning_pipeline(candidate_name, jd_requirements, screen_data)
         interview_data = parse_agent_output(interview_result, InterviewPlan)
+        print(f"{GREEN}✅ Interview Plan Generated.{RESET}")
+
+        # STEP 4: Hiring Committee Debate (Week 5 Feature)
+        print(f"\n{MAGENTA}🏛️  Step 4: Convening the Hiring Committee (LangGraph Debate)...{RESET}")
+        screener_summary = screen_data.candidate_summary + "\nStrengths: " + ", ".join(screen_data.key_strengths)
         
+        committee_result = run_hiring_committee(
+            resume=resume_text,
+            jd=jd_text,
+            screener_analysis=screener_summary
+        )
+
         # FINAL UI REPORT
-        print("\n" + "━"*70)
-        print(f"{BOLD}{CYAN}           TALENT INTELLIGENCE REPORT - FINAL MVP{RESET}")
-        print("━"*70)
+        print("\n" + "━"*80)
+        print(f"{BOLD}{CYAN}           TALENT INTELLIGENCE REPORT - FINAL HI-TECH EDITION{RESET}")
+        print("━"*80)
         
         match_val = screen_data.match_percentage
         color = GREEN if match_val >= 80 else YELLOW if match_val >= 60 else RED
@@ -71,18 +83,18 @@ def main():
         for s in screen_data.key_strengths:
             print(f"  ● {s}")
             
-        print(f"\n{BOLD}{MAGENTA}🎯 STRATEGIC INTERVIEW QUESTIONS:{RESET}")
-        for i, q in enumerate(interview_data.strategic_questions, 1):
-            print(f"  {i}. {q}")
+        print(f"\n{BOLD}{YELLOW}👨‍💻 TECH LEAD EVALUATION:{RESET}")
+        print(f"{committee_result['tech_lead_eval'].strip()[:500]}...") # Truncated for UI
+        
+        print(f"\n{BOLD}{MAGENTA}🤝 HR SPECIALIST EVALUATION:{RESET}")
+        print(f"{committee_result['hr_eval'].strip()[:500]}...") # Truncated for UI
+        
+        print(f"\n{BOLD}{CYAN}🏢 DEPARTMENT MANAGER FINAL DECISION:{RESET}")
+        print(f"{committee_result['manager_decision'].strip()}")
             
-        print(f"\n{BOLD}{YELLOW}💡 INTERVIEWER GUIDANCE:{RESET}")
-        print(f"  {interview_data.interviewer_guidance}")
-            
-        print("━"*70)
-        rec_text = "HIRE / PROCEED" if match_val >= 75 else "REJECT"
-        rec_color = GREEN if match_val >= 75 else RED
-        print(f"{BOLD}{CYAN}FINAL RECOMMENDATION:{RESET} {BOLD}{rec_color}{rec_text}{RESET}")
-        print("━"*70 + "\n")
+        print("━"*80)
+        print(f"{BOLD}{CYAN}TalentStream AI: Engineering Success through Collaboration.{RESET}")
+        print("━"*80 + "\n")
 
     except Exception as e:
         print(f"{RED}❌ Pipeline Execution Failed: {e}{RESET}")

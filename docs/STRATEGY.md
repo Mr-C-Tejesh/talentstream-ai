@@ -47,12 +47,12 @@ This document serves as the **Architecture Decision Record (ADR)** and **Strateg
 
 ---
 
-## 📈 5. Week 1 Review Summary (Status: SUCCESS)
+## 📈 5. Week 5 Review Summary (Status: SUCCESS)
 
 **Key Achievements:**
-- ✅ **Modular Architecture:** Established `/agents`, `/docs`, and `/api` scaffolding.
-- ✅ **Screener Prototype:** `screener_agent.py` successfully produces structured JSON evaluations.
-- ✅ **Defensive Logic:** Implemented robust `parse_result` in `main.py` to handle brittle LLM outputs.
-- ✅ **Persona Definition:** Detailed the 4 core personas (Screener, Tech Lead, HR, Manager) in `docs/personas.md`.
+- ✅ **Agentic Shift:** Transitioned from linear CrewAI pipelines to a stateful **LangGraph** orchestration.
+- ✅ **Hiring Committee Debate:** Implemented a multi-agent "Hiring Committee" (Tech Lead, HR, Manager) that debates candidate fit using collaborative reasoning.
+- ✅ **Persona Integration:** Successfully mapped distinct personas (Skeptical Tech Lead, Empathetic HR, ROI-focused Manager) into the graph logic.
+- ✅ **Dependency Management:** Updated `requirements.txt` with `langgraph` and associated LangChain/OpenAI libraries.
 
-**Strategic Note:** The "Digital Hiring Committee" is currently a CLI-based logic; Phase II will focus on moving this into a stateful, searchable system.
+**Strategic Note:** The committee now demonstrates "Debate-style reasoning," fulfilling the Phase IV (Week 5) requirement. Next steps will focus on refining the interactive interview layer.
