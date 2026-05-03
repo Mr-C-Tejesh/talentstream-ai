@@ -47,12 +47,13 @@ This document serves as the **Architecture Decision Record (ADR)** and **Strateg
 
 ---
 
-## 📈 5. Week 5 Review Summary (Status: SUCCESS)
+## 📈 5. Week 6 Review Summary (Status: SUCCESS)
 
 **Key Achievements:**
-- ✅ **Agentic Shift:** Transitioned from linear CrewAI pipelines to a stateful **LangGraph** orchestration.
-- ✅ **Hiring Committee Debate:** Implemented a multi-agent "Hiring Committee" (Tech Lead, HR, Manager) that debates candidate fit using collaborative reasoning.
-- ✅ **Persona Integration:** Successfully mapped distinct personas (Skeptical Tech Lead, Empathetic HR, ROI-focused Manager) into the graph logic.
-- ✅ **Dependency Management:** Updated `requirements.txt` with `langgraph` and associated LangChain/OpenAI libraries.
+- ✅ **Cyclic Orchestration:** Upgraded the LangGraph workflow with a `should_continue` loop, allowing for multi-round debates until consensus is reached.
+- ✅ **Human-in-the-Loop (HITL):** Integrated a `human_input` state variable, enabling recruiters to provide "nudges" to the agents during the debate.
+- ✅ **Streamlit Dashboard:** Developed a professional Recruiter UI for end-to-end evaluation, featuring multi-tab visualizations of the "Hiring Committee" debate.
+- ✅ **FastAPI Integration:** Connected the frontend to a robust backend, enabling asynchronous multi-agent processing.
+- ✅ **Deployment Ready:** Configured `render.yaml` for seamless multi-service deployment on Render.
 
-**Strategic Note:** The committee now demonstrates "Debate-style reasoning," fulfilling the Phase IV (Week 5) requirement. Next steps will focus on refining the interactive interview layer.
+**Strategic Note:** The "Agentic Shift" is complete. The system now behaves as a collaborative autonomous entity with a professional interface. Next phase: **V: Interaction (Week 7)** - Adding the adaptive voice/text interviewer.

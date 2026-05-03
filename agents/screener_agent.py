@@ -12,7 +12,7 @@ class ScreeningResult(BaseModel):
     missing_skills: List[str] = Field(..., description="List of critical skills or requirements from JD missing in resume.")
 
 class ScreenerAgent:
-    def __init__(self, model="groq/llama-3.3-70b-versatile"):
+    def __init__(self, model="groq/llama-3.1-8b-instant"):
         self.agent = Agent(
             role="Expert Technical Recruiter & Resume Analyst",
             goal="Perform a deep match between a candidate's resume and structured job requirements.",
@@ -51,7 +51,7 @@ class ScreenerAgent:
             output_json=ScreeningResult
         )
 
-def run_screening_pipeline(jd_requirements: JobRequirements, resume_text: str, model="groq/llama-3.3-70b-versatile"):
+def run_screening_pipeline(jd_requirements: JobRequirements, resume_text: str, model="groq/llama-3.1-8b-instant"):
     # Initialize the agent
     screener = ScreenerAgent(model=model)
     

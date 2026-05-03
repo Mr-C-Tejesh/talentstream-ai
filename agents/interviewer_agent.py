@@ -11,7 +11,7 @@ class InterviewPlan(BaseModel):
     interviewer_guidance: str = Field(..., description="Brief tips for the interviewer on how to handle this specific candidate.")
 
 class InterviewerAgent:
-    def __init__(self, model="groq/llama-3.3-70b-versatile"):
+    def __init__(self, model="groq/llama-3.1-8b-instant"):
         self.agent = Agent(
             role="Senior Technical Interviewer & Systems Architect",
             goal="Generate a strategic interview plan with 5 deep-dive questions based on candidate screening results.",
