@@ -43,9 +43,37 @@ class EvaluationResponse(BaseModel):
     interview_plan: InterviewPlan
     committee_debate: Optional[Dict] = None
 
+class MockInterviewRequest(BaseModel):
+    question: str
+    candidate_answer: str
+    context: str
+
+class MockInterviewResponse(BaseModel):
+    feedback: str
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to TalentStream AI API", "status": "active", "version": "1.0.0"}
+
+@app.post("/mock-interview-reply", response_model=MockInterviewResponse)
+def mock_interview_reply(request: MockInterviewRequest):
+    try:
+        from langchain_openai import ChatOpenAI
+        from langchain_core.messages import HumanMessage
+        llm = ChatOpenAI(model="llama-3.1-8b-instant", openai_api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
+        prompt = (
+            "You are a Senior Technical Interviewer conducting a mock interview.\n"
+            f"Context about the candidate and role:\n{request.context}\n\n"
+            f"You asked the following question:\n{request.question}\n\n"
+            f"The candidate answered:\n{request.candidate_answer}\n\n"
+            "Provide professional, constructive feedback on the candidate's answer. "
+            "Highlight strengths, point out any technical inaccuracies or missing depth, and suggest how they could improve their response."
+        )
+        response = llm.invoke([HumanMessage(content=prompt)])
+        return MockInterviewResponse(feedback=response.content)
+    except Exception as e:
+        print(f"ERROR in /mock-interview-reply: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/analyze-jd", response_model=JobRequirements)
 def analyze_jd(request: AnalysisRequest):

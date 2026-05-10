@@ -16,13 +16,14 @@ For the Week 6 milestone, we have evolved the system into a full-stack product. 
 
 ---
 
-## 🏛️ Week 6 Milestone: End-to-End Visual Demo
+## 🏛️ Week 7 Milestone: Simulated Interview & Final Polish
 
-The system now generates a visual **Talent Intelligence Report** through a professional dashboard:
+The system now encompasses a complete end-to-end pipeline, culminating in an interactive candidate experience:
 
 - **📄 Upload & Analyze**: Recruiters paste a JD and upload a PDF resume.
 - **🏛️ Hiring Committee**: A visual display of the multi-round debate between the **Tech Lead**, **HR Specialist**, and **Department Manager**.
 - **📊 Talent Intelligence Report**: A final synthesis featuring match scores, strengths, and strategic interview questions.
+- **🎤 Simulated Interview**: A newly added interactive tab where candidates can practice answering the strategic questions and receive real-time, constructive feedback from the AI Interviewer Agent.
 
 ---
 
