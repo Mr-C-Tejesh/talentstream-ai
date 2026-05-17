@@ -57,26 +57,24 @@ graph TD
 - **Database**: PostgreSQL + pgvector (Supabase)
 - **Deployment**: Render (Configured via `render.yaml`)
 
-## 🚀 Getting Started
+## 🚀 Deployment
 
-### 1. Installation
-```bash
-pip install -r requirements.txt
-```
+The project is configured for seamless deployment on **Render** using the `render.yaml` blueprint.
 
-### 2. Launch the Full-Stack Demo
-Start the backend:
-```bash
-uvicorn api.main:app --host 0.0.0.0 --port 8000
-```
+### Steps to Deploy:
+1. **Fork this repository** to your GitHub account.
+2. **Create a new Blueprint Project** on [Render](https://dashboard.render.com/blueprints).
+3. Connect your forked repository.
+4. Render will automatically detect the `render.yaml` and set up two services:
+   - `talentstream-api`: The FastAPI backend.
+   - `talentstream-ui`: The Streamlit frontend.
+5. **Environment Variables**: Add your `GROQ_API_KEY` in the Render dashboard for both services.
+6. **Backend URL**: Once the API service is deployed, copy its URL and update the `BACKEND_URL` environment variable in the UI service settings.
 
-Start the frontend:
-```bash
-streamlit run app.py
-```
+## 🌐 Live Demo
 
-### 3. Deployment
-The project is configured for **Render**. Use the included `render.yaml` to deploy both services simultaneously.
+Check out the live version of TalentStream AI here:
+[**Live Demo Link**](https://talentstream-ui.onrender.com) *(Placeholder)*
 
 ---
 

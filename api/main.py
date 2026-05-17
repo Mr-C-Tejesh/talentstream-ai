@@ -55,6 +55,10 @@ class MockInterviewResponse(BaseModel):
 async def root():
     return {"message": "Welcome to TalentStream AI API", "status": "active", "version": "1.0.0"}
 
+@app.get("/health")
+async def health_check():
+    return {"status": "ok", "service": "TalentStream AI"}
+
 @app.post("/mock-interview-reply", response_model=MockInterviewResponse)
 def mock_interview_reply(request: MockInterviewRequest):
     try:

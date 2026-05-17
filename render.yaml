@@ -1,24 +1,26 @@
 services:
-  # FastAPI Backend
+  # FastAPI Backend Service
   - type: web
     name: talentstream-api
-    env: python
+    runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GROQ_API_KEY
-        sync: false # Set in Render Dashboard
-      - key: OPENAI_API_KEY
-        sync: false # Set in Render Dashboard
-      - key: DATABASE_URL
-        sync: false # Set in Render Dashboard
+        sync: false
+      - key: PYTHON_VERSION
+        value: 3.10.0
 
-  # Streamlit Frontend
+  # Streamlit Frontend Service
   - type: web
     name: talentstream-ui
-    env: python
+    runtime: python
     buildCommand: pip install -r requirements.txt
     startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0
     envVars:
-      - key: API_BASE_URL
-        value: https://talentstream-api.onrender.com # Change after deployment
+      - key: GROQ_API_KEY
+        sync: false
+      - key: BACKEND_URL
+        value: https://talentstream-api.onrender.com # Update this after first deployment
+      - key: PYTHON_VERSION
+        value: 3.10.0

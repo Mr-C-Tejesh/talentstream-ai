@@ -70,10 +70,29 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-st.sidebar.title("⚙️ TalentStream AI")
-st.sidebar.markdown("---")
-api_url = st.sidebar.text_input("API Base URL", value="http://localhost:8000")
-st.sidebar.info("This dashboard connects to the TalentStream AI FastAPI backend to run autonomous multi-agent hiring workflows.")
+with st.sidebar:
+    st.title("🤖 TalentStream AI")
+    st.markdown("### **Team: Titanic**")
+    st.markdown("---")
+    
+    st.markdown("#### **Tech Stack**")
+    st.markdown("![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)")
+    st.markdown("![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)")
+    st.markdown("![CrewAI](https://img.shields.io/badge/CrewAI-orange?style=for-the-badge)")
+    st.markdown("![LangGraph](https://img.shields.io/badge/LangGraph-blue?style=for-the-badge)")
+    st.markdown("![Groq](https://img.shields.io/badge/Groq-black?style=for-the-badge)")
+    
+    st.markdown("---")
+    
+    # Get Backend URL from env or fallback to local
+    default_api_url = os.getenv("BACKEND_URL", "http://localhost:8000")
+    api_url = st.text_input("🔗 API Base URL", value=default_api_url)
+    
+    st.markdown("---")
+    st.markdown("### 🔗 Project Links")
+    st.markdown("[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/your-repo/talentstream-ai)")
+    
+    st.info("This dashboard connects to the TalentStream AI FastAPI backend to run autonomous multi-agent hiring workflows.")
 
 # --- HELPERS ---
 def get_resume_text(uploaded_file):
