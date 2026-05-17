@@ -51,7 +51,7 @@ class ScreenerAgent:
             output_json=ScreeningResult
         )
 
-def run_screening_pipeline(jd_requirements: JobRequirements, resume_text: str, model="groq/llama-3.1-8b-instant"):
+def run_screening_pipeline(jd_requirements: JobRequirements, resume_text: str, model="groq/llama-3.3-70b-versatile"):
     # Initialize the agent
     screener = ScreenerAgent(model=model)
     

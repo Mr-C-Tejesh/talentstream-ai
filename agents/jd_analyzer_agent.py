@@ -11,7 +11,7 @@ class JobRequirements(BaseModel):
     preferred_qualifications: List[str] = Field(..., description="Optional but highly valued skills or experiences.")
 
 class JDAnalyzerAgent:
-    def __init__(self, model="groq/llama-3.1-8b-instant"):
+    def __init__(self, model="groq/llama-3.3-70b-versatile"):
         self.agent = Agent(
             role="Technical Hiring Strategist",
             goal="Analyze a Job Description (JD) and extract a structured set of core requirements and 'Must-Haves'.",

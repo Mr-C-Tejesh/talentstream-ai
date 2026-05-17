@@ -64,7 +64,7 @@ def mock_interview_reply(request: MockInterviewRequest):
     try:
         from langchain_openai import ChatOpenAI
         from langchain_core.messages import HumanMessage
-        llm = ChatOpenAI(model="llama-3.1-8b-instant", openai_api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
+        llm = ChatOpenAI(model="llama-3.3-70b-versatile", openai_api_key=os.getenv("GROQ_API_KEY"), base_url="https://api.groq.com/openai/v1")
         prompt = (
             "You are a Senior Technical Interviewer conducting a mock interview.\n"
             f"Context about the candidate and role:\n{request.context}\n\n"

@@ -56,7 +56,7 @@ def tech_lead_node(state: HiringCommitteeState):
 
 # Node: HR Specialist
 def hr_specialist_node(state: HiringCommitteeState):
-    llm = get_llm(model_name="llama-3.1-8b-instant")
+    llm = get_llm()
     prompt = (
         "You are the 'HR Specialist Agent'. You evaluate candidates for soft skills and cultural alignment.\n"
         "Focus: Teamwork, communication, conflict resolution, and core values.\n"
@@ -73,7 +73,7 @@ def hr_specialist_node(state: HiringCommitteeState):
 
 # Node: Department Manager (Decision Node)
 def department_manager_node(state: HiringCommitteeState):
-    llm = get_llm(model_name="llama-3.3-70b-versatile")
+    llm = get_llm()
     
     # Check for consensus or need for more rounds
     decision_prompt = (
