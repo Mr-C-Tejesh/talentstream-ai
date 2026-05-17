@@ -2,85 +2,282 @@
 
 **Autonomous Multi-Agent Hiring & Interviewing System**
 
----
-
-## 🔥 The Unique Positioning (Top 1% Strategy)
-**TalentStream AI** is an autonomous recruitment ecosystem that simulates a **real-world hiring pipeline.** Instead of relying on a single model's output, it employs a **"Digital Hiring Committee"** of specialized AI agents that collaborate, debate, and reason together to move a candidate from application to a final data-driven hiring decision.
-
-### Week 6 Milestone: The Demo-Ready Interface (Streamlit & Cyclic LangGraph)
-For the Week 6 milestone, we have evolved the system into a full-stack product. Key upgrades include:
-1. **Streamlit Recruiter Dashboard**: A professional UI for JD analysis, resume uploads, and real-time debate visualization.
-2. **Cyclic Hiring Committee**: Upgraded the LangGraph orchestration to support **Multi-Round Debates**, where agents loop until a consensus is reached (monitored by a Department Manager).
-3. **Human-in-the-Loop (HITL)**: Recruiters can now provide "nudges" or constraints to the agents mid-workflow.
-4. **Heterogeneous Model Strategy**: Optimized token usage and bypassed Groq rate limits by utilizing Llama-3.1-8B for worker agents and Llama-3.3-70B for the final managerial decision.
+> Built by **Team Titanic** | Agentic AI Saksham Internship | Capabl × Nasscom
 
 ---
 
-## 🏛️ Week 7 Milestone: Simulated Interview & Final Polish
+## 🔥 What Is TalentStream AI?
 
-The system now encompasses a complete end-to-end pipeline, culminating in an interactive candidate experience:
+TalentStream AI is an autonomous recruitment ecosystem that simulates a **real-world hiring pipeline.** Instead of relying on a single model, it employs a **Digital Hiring Committee** of specialized AI agents that collaborate, debate, and reason together — moving a candidate from raw resume to a final data-driven hiring decision.
 
-- **📄 Upload & Analyze**: Recruiters paste a JD and upload a PDF resume.
-- **🏛️ Hiring Committee**: A visual display of the multi-round debate between the **Tech Lead**, **HR Specialist**, and **Department Manager**.
-- **📊 Talent Intelligence Report**: A final synthesis featuring match scores, strengths, and strategic interview questions.
-- **🎤 Simulated Interview**: A newly added interactive tab where candidates can practice answering the strategic questions and receive real-time, constructive feedback from the AI Interviewer Agent.
+**This is not a resume parser. This is a hiring committee.**
 
 ---
 
-## 🧠 System Architecture
+## 🌐 Live Demo
 
-The architecture has evolved into a **Cyclic Agentic Workflow** with a professional frontend layer.
+- **Frontend (Streamlit):** [talentstream-ai.streamlit.app](https://talentstream-ai.streamlit.app)
+- **Backend (Railway):** [talentstream-api-production.up.railway.app](https://talentstream-api-production.up.railway.app/health)
 
-```mermaid
-graph TD
-    UI[Streamlit Dashboard] <--> API[FastAPI Backend]
-    API --> JD[JD Analyzer Agent - 8B]
-    API --> SCR[Screener Agent - 8B]
-    API --> HG[Hiring Committee LangGraph]
-    
-    subgraph HG [Hiring Committee Debate Loop]
-        TL[Tech Lead - 8B] --> HR[HR Specialist - 8B]
-        HR --> DM[Dept Manager - 70B]
-        DM -- "Needs Clarification" --> TL
-    end
-    
-    DM --> REP[Final Talent Intelligence Report]
+---
+
+## 🏗️ System Architecture
+
+```
+Streamlit Dashboard
+        │
+        ▼
+FastAPI Backend (Railway)
+        │
+        ├── JD Analyzer Agent (CrewAI)
+        │       └── Extracts Must-Haves, Tech Stack, Requirements
+        │
+        ├── Technical Screener Agent (CrewAI)
+        │       └── Match Score, Strengths, Critical Gaps
+        │
+        ├── Interviewer Agent (CrewAI)
+        │       └── 5 Strategic Non-Googlable Questions
+        │
+        └── Digital Hiring Committee (LangGraph StateGraph)
+                ├── Tech Lead Agent
+                ├── HR Specialist Agent
+                ├── Department Manager Agent
+                └── Consensus → HIRE / INTERVIEW FURTHER / REJECT
 ```
 
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend**: Streamlit (Week 6)
-- **Backend**: FastAPI (Week 6)
-- **Orchestration**: LangGraph (Cyclic) & CrewAI
-- **LLMs**: Groq (Llama 3.1 8B & 3.3 70B)
-- **Database**: PostgreSQL + pgvector (Supabase)
-- **Deployment**: Render (Configured via `render.yaml`)
 
-## 🚀 Deployment
-
-The project is configured for seamless deployment on **Render** using the `render.yaml` blueprint.
-
-### Steps to Deploy:
-1. **Fork this repository** to your GitHub account.
-2. **Create a new Blueprint Project** on [Render](https://dashboard.render.com/blueprints).
-3. Connect your forked repository.
-4. Render will automatically detect the `render.yaml` and set up two services:
-   - `talentstream-api`: The FastAPI backend.
-   - `talentstream-ui`: The Streamlit frontend.
-5. **Environment Variables**: Add your `GROQ_API_KEY` in the Render dashboard for both services.
-6. **Backend URL**: Once the API service is deployed, copy its URL and update the `BACKEND_URL` environment variable in the UI service settings.
-
-## 🌐 Live Demo
-
-Check out the live version of TalentStream AI here:
-[**Live Demo Link**](https://talentstream-ui.onrender.com) *(Placeholder)*
+| Component | Technology |
+|---|---|
+| AI Framework | CrewAI + LangGraph |
+| LLM | Groq (Llama 3.3 70B + Llama 3.1 8B) |
+| Backend | FastAPI |
+| Frontend | Streamlit |
+| Deployment | Railway (API) + Streamlit Cloud (UI) |
 
 ---
 
-## 🧩 Project Structure
-- `agents/`: Core logic for specialized AI agents (Tech Lead, HR, Manager).
-- `api/`: FastAPI backend with unified `/evaluate-candidate` endpoint.
-- `app.py`: Streamlit frontend dashboard.
-- `docs/STRATEGY.md`: The full 8-week execution roadmap and architecture decision records.
-- `render.yaml`: Deployment configuration for multi-service cloud hosting.
+## 🎯 Features
+
+| Feature | Description |
+|---|---|
+| 📄 JD Analysis | Extracts structured Must-Haves from raw job descriptions |
+| 🔍 Technical Screening | Semantic resume-JD matching with match probability |
+| 🎤 Interview Planning | 5 surgical questions targeting candidate-specific weak spots |
+| 🏛️ Hiring Committee | LangGraph debate — Tech Lead, HR Specialist, Department Manager |
+| 💬 Simulated Interview | Candidate answers questions and receives real-time AI feedback |
+
+---
+
+## 🚀 How to Run Locally
+
+### 1. Clone and install
+```bash
+git clone https://github.com/Mr-C-Tejesh/talentstream-ai.git
+cd talentstream-ai
+pip install -r requirements.txt
+```
+
+### 2. Set up environment
+```bash
+cp .env.example .env
+# Add your GROQ_API_KEY to .env
+```
+
+### 3. Run CLI demo
+```bash
+python main.py
+```
+
+### 4. Run API backend
+```bash
+uvicorn api.main:app --reload
+```
+
+### 5. Run Streamlit UI
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📁 Project Structure
+
+```
+talentstream-ai/
+├── agents/
+│   ├── jd_analyzer_agent.py
+│   ├── screener_agent.py
+│   ├── interviewer_agent.py
+│   └── hiring_committee.py
+├── api/
+│   └── main.py
+├── docs/
+│   ├── STRATEGY.md
+│   └── personas.md
+├── data/Samples/
+├── app.py
+├── main.py
+├── requirements.txt
+└── render.yaml
+```
+
+---
+
+## 👥 Team Titanic
+
+| Role | Member |
+|---|---|
+| Captain & Lead Developer | C Tejesh |
+| Member | Bhuvan |
+| Member | Darshan BR |
+| Member | Vinay |
+
+**Institution:** RV Institute of Technology and Management (RVITM), Bengaluru
+
+---
+
+*Built over 8 weeks as part of the Agentic AI Saksham Internship by Capabl × Nasscom*# TalentStream AI 🚀
+
+**Autonomous Multi-Agent Hiring & Interviewing System**
+
+> Built by **Team Titanic** | Agentic AI Saksham Internship | Capabl × Nasscom
+
+---
+
+## 🔥 What Is TalentStream AI?
+
+TalentStream AI is an autonomous recruitment ecosystem that simulates a **real-world hiring pipeline.** Instead of relying on a single model, it employs a **Digital Hiring Committee** of specialized AI agents that collaborate, debate, and reason together — moving a candidate from raw resume to a final data-driven hiring decision.
+
+**This is not a resume parser. This is a hiring committee.**
+
+---
+
+## 🌐 Live Demo
+
+- **Frontend (Streamlit):** [talentstream-ai.streamlit.app](https://talentstream-ai.streamlit.app)
+- **Backend (Railway):** [talentstream-api-production.up.railway.app](https://talentstream-api-production.up.railway.app/health)
+
+---
+
+## 🏗️ System Architecture
+
+```
+Streamlit Dashboard
+        │
+        ▼
+FastAPI Backend (Railway)
+        │
+        ├── JD Analyzer Agent (CrewAI)
+        │       └── Extracts Must-Haves, Tech Stack, Requirements
+        │
+        ├── Technical Screener Agent (CrewAI)
+        │       └── Match Score, Strengths, Critical Gaps
+        │
+        ├── Interviewer Agent (CrewAI)
+        │       └── 5 Strategic Non-Googlable Questions
+        │
+        └── Digital Hiring Committee (LangGraph StateGraph)
+                ├── Tech Lead Agent
+                ├── HR Specialist Agent
+                ├── Department Manager Agent
+                └── Consensus → HIRE / INTERVIEW FURTHER / REJECT
+```
+
+---
+
+## 🛠️ Tech Stack
+
+| Component | Technology |
+|---|---|
+| AI Framework | CrewAI + LangGraph |
+| LLM | Groq (Llama 3.3 70B + Llama 3.1 8B) |
+| Backend | FastAPI |
+| Frontend | Streamlit |
+| Deployment | Railway (API) + Streamlit Cloud (UI) |
+
+---
+
+## 🎯 Features
+
+| Feature | Description |
+|---|---|
+| 📄 JD Analysis | Extracts structured Must-Haves from raw job descriptions |
+| 🔍 Technical Screening | Semantic resume-JD matching with match probability |
+| 🎤 Interview Planning | 5 surgical questions targeting candidate-specific weak spots |
+| 🏛️ Hiring Committee | LangGraph debate — Tech Lead, HR Specialist, Department Manager |
+| 💬 Simulated Interview | Candidate answers questions and receives real-time AI feedback |
+
+---
+
+## 🚀 How to Run Locally
+
+### 1. Clone and install
+```bash
+git clone https://github.com/Mr-C-Tejesh/talentstream-ai.git
+cd talentstream-ai
+pip install -r requirements.txt
+```
+
+### 2. Set up environment
+```bash
+cp .env.example .env
+# Add your GROQ_API_KEY to .env
+```
+
+### 3. Run CLI demo
+```bash
+python main.py
+```
+
+### 4. Run API backend
+```bash
+uvicorn api.main:app --reload
+```
+
+### 5. Run Streamlit UI
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📁 Project Structure
+
+```
+talentstream-ai/
+├── agents/
+│   ├── jd_analyzer_agent.py
+│   ├── screener_agent.py
+│   ├── interviewer_agent.py
+│   └── hiring_committee.py
+├── api/
+│   └── main.py
+├── docs/
+│   ├── STRATEGY.md
+│   └── personas.md
+├── data/Samples/
+├── app.py
+├── main.py
+├── requirements.txt
+└── render.yaml
+```
+
+---
+
+## 👥 Team Titanic
+
+| Role | Member |
+|---|---|
+| Captain & Lead Developer | C Tejesh |
+| Member | Bhuvan |
+| Member | Darshan BR |
+| Member | Vinay |
+
+**Institution:** RV Institute of Technology and Management (RVITM), Bengaluru
+
+---
+
+*Built over 8 weeks as part of the Agentic AI Saksham Internship by Capabl × Nasscom*
